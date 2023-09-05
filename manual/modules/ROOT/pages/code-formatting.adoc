@@ -1,5 +1,38 @@
 = Code Formatting
 
+Ensure that your source code format for OpenCPN or Plugins follows the standards below; proper use of tabs, spaces, line feeds and carriage returns is important.
+
+  - There is a difference in the use of LF (line feed) and CR (carriage return) when using WIndows versis Linux/Mac. Most good editors allow the user to select the use of these line end functions. Pick one and be consistent. The same goes for the use of tabs versis spaces - pick one and be consistent.
+
+  - There should be no extra spaces at the end of a line, or empty lines at the end of a file (EOF errors). Both of these are considered 'bad coding practice'.
+
+  - Git has tools that will help verify and improve your code format and will simply refuse to commit unless the rules are followed. These rules can be adjusted, though a basic ruleset is already applied. There is also an option to test before commit, a pre-commit option.
+
+  - OpenCPN allows for testing according to the rules specified, there is a script in the plugins directory. In your local R&D system, find './plugins/.git/hooks' and copy/rename the file 'pre-commit.sample' to 'pre-commit' and ensure the file is executable. That script may now be used to test according to your own local rules.
+
+  - The rules are set in the coding directory, the same as where your application code is. Rules could vary depending on your platform, especially for EOL characters.
+
+For a typical Linux platform using spaces instead of tabs you may enforce git looking for errors, using:
+
+    git config --global core.whitespace\
+    trailing-space,-space-before-tab,-indent-with-non-tab,tab-in-indent,cr-at-eol
+
+Meaning:
+
+- Trailing space -> error
+
+- Tab in indent -> error
+
+- CR at end of line -> error
+
+There is a good page explaing the configuration and the options available, please see   'https://git-scm.com/book/pt-br/v2/Customizing-Git-Git-Configuration' and the section 'Formatting and Whitespace'.
+
+Once the code is added to git (using 'git add ...') you may test it using:
+
+    <yourLocalPath>/plugins/.git/hooks/pre-commit
+
+That will test all your code within the current path and the result should be the command prompt response back if all is  OK. Once this is done, then you may also commit without errors.
+
 == C/C++
 
 After resolving https://github.com/OpenCPN/OpenCPN/issues/1118[Bug 1118]
@@ -60,6 +93,27 @@ recommended.
 There is an https://github.com/OpenCPN/OpenCPN/issues/1416[open bug] for
 creating an _.editorconfig_ file.  This file could be used by most
 editors to define basic settings.
+
+Linux .editconfig file Example https://github.com/leamas/OpenCPN/commit/93e999f996d9e20574e0036e610ff39a319e409c
+Windows .editorconfig file Example:
+
+   # For information on this file see: https://editorconfig.org
+   # Many plugin developers use a version of this file in each local git plugin directory.
+   
+   root = true
+   
+   [*]
+   end_of_line = lf
+   insert_final_newline = true
+  
+  [*.{xml}]
+  charset = utf-8
+  
+  [*.{cmake,cpp,h,sh,in,yml,xsd}]
+  charset = latin1
+  indent_style = space
+  indent_size = 4
+  trim_trailing_whitespace = true
 
 There are no standard configurations available for IDEs like Visual Studio
 Code, Eclipse or CLion.
