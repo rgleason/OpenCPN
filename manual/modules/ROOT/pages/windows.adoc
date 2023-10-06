@@ -77,6 +77,7 @@ Here are more details with explanations of each step.
 +
 * [*] ```Desktop development with C++```
 * [*] ```C++ CMake tools for windows```
+C++ Cmake tools for Windows is under "Optional" a menu to the right with 13 other options selected.
 +
 . Install git for Windows: https://git-scm.com/download/win
 . Open _x86 Native Tools Command Prompt for Visual Studio 2022_
